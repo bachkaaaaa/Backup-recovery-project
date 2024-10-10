@@ -1,0 +1,7 @@
+---
+- hosts: recovery_servers
+  become: yes
+  tasks:
+    - name: Sync backup from S3 to local
+      shell: |
+        aws s3 sync s3://30daysbackup/{{ ansible_user }}/ /home/

@@ -1,0 +1,20 @@
+---
+- name: Backup home directory to S3
+  hosts: backup_servers
+  become: yes
+  gather_facts: no
+  tasks:
+    - name: Install cron
+      yum:
+        name: cronie
+        state: present
+    - name: Start and enable crond service
+      service:
+        name: crond
+        state: started
+        enabled: yes
+    - name: cron job for daily backup
+      cron:
+        name: "Backup home directory to S3"
+        minute: "*"
+        job: "aws s3 sync /home s3://30daysbackup/{{ ansible_user }}"
