@@ -17,4 +17,4 @@
       cron:
         name: "Backup home directory to S3"
         minute: "*"
-        job: "aws s3 sync /home s3://30daysbackup/{{ ansible_user }}"
+        job: "aws s3 sync /home/ec2-user s3://30daysbackup/{{ ansible_user }}"
